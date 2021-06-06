@@ -13,4 +13,6 @@ public abstract class Mode extends MouseInputAdapter {
     public void mouseReleased(MouseEvent e) {};
 
     public void mouseClicked(MouseEvent e) {};
+
+    public void mouseDragged(MouseEvent e) {};
 }
