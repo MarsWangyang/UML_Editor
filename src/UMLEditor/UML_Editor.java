@@ -20,5 +20,6 @@ public class UML_Editor {
         editor.setSize(1200, 750);
 
         editor.setVisible(true);
+
     }
 }

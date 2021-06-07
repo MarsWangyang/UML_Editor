@@ -13,11 +13,11 @@ import UMLMode.selectMode;
 public class ToolBar extends JToolBar {
     private Canvas canvas;
     private int toolNum = 6;
-    private JButton holdBtn = null;
+
 
     public ToolBar() {
         canvas = Canvas.getInstance();
-        setLayout(new GridLayout(toolNum, 1, 2, 2));
+        setLayout(new GridLayout(toolNum, 1, 3, 3));
 
         Button selection = new Button("select.png", new selectMode(), "selection");
         add(selection);
@@ -36,50 +36,12 @@ public class ToolBar extends JToolBar {
 
         Button useObj = new Button("usecase.png", new objMode(), "useObj");
         add(useObj);
-    }
-
-
-    private class Button extends JButton{
-        Mode toolMode;
-        ImageIcon icon;
-        String createObj;
-
-        public Button(String filename, Mode toolMode, String createObj){
-            this.toolMode = toolMode;
-            this.createObj = createObj;
-            //System.out.println(toolMode);
-            initBtn(filename);
-            this.addActionListener(new InnerListener());
-        }
-
-        //設定初始化的Button
-        public void initBtn(String filename){
-            icon = new ImageIcon(filename);
-            setIcon(icon);
-            setFocusable(false);
-            this.setBackground(Color.CYAN);
-            this.setOpaque(true);
-            setBorderPainted(false);
-            setRolloverEnabled(true);
-        }
-
-
-        class InnerListener implements ActionListener {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (holdBtn != null) {
-                    holdBtn.setBackground(Color.CYAN);
-                }
-                holdBtn = (JButton) e.getSource(); // holdBtn拿到的是要JButton(也就是e.getSouce())
-                holdBtn.setBackground(Color.RED);
-                canvas.changeMode(toolMode);    //當action為點擊某個tool時，會在canvas中轉換成為那個Mode。
-                canvas.listenerSetting();   //這裡去重新調整canvas中目前的listener應該是哪一種Mode的Listener
-                canvas.repaint();
-            }
-        }
+        System.out.println("111111");
 
     }
-    //abstract Mode class extend Mouseinput adapter
+
+
+        //abstract Mode class extend Mouseinput adapter
 
 }
 

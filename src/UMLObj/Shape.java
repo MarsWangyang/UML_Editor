@@ -1,4 +1,6 @@
 package UMLObj;
 
-public class Shape {
+public abstract class Shape {
+    private String SID = null;
+
 }

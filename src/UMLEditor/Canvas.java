@@ -15,6 +15,7 @@ public class Canvas extends JPanel {
     private Mode currentMode;
     private EventListener currentListener = null;
     private Vector allObjectVector = new Vector<>();
+    public String currentShape = null;
 
 
     private Canvas(){}
@@ -34,6 +35,11 @@ public class Canvas extends JPanel {
         System.out.println(currentMode);
     }
 
+    public void changeObj(String createObj) {
+        currentShape = createObj;
+    }
+
+
     //對整個canvas做MouseListener，因為canvas是JPanel，所以addXXXListener就會對整個Panel做admin
     //currentListener中會是inherit Adapter，因此裡面都是Mouse Action.
     public void listenerSetting() {
@@ -43,6 +49,12 @@ public class Canvas extends JPanel {
         addMouseListener((MouseListener) currentListener);
         addMouseMotionListener((MouseMotionListener) currentListener);
     }
+
+    public void addShape(Shape shape) {
+
+    }
+
+
 
 
 
