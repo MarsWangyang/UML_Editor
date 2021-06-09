@@ -2,11 +2,13 @@ package UMLObj;
 
 import java.awt.*;
 
-public class BasicObj extends Shape{
+public abstract class BasicObj extends Shape{
     private String name = null;
     private boolean isSelected = false;
+    protected double width;
+    protected double height;
 
-    public void resetName(Point delta) {
+    public void resetName(String newName) {
 
     }
 
@@ -17,4 +19,6 @@ public class BasicObj extends Shape{
     public void resetLocation(Point delta) {
 
     }
+
+    public abstract void draw(Graphics g);
 }

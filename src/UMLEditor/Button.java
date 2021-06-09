@@ -18,7 +18,6 @@ public class Button extends JButton {
         canvas = Canvas.getInstance();
         this.toolMode = toolMode;
         this.createObj = createObj;
-        System.out.println("toolMode");
         initBtn(filename);
         this.addActionListener(new InnerListener());
     }
@@ -37,7 +36,6 @@ public class Button extends JButton {
 
     public void resetHoldBtn(JButton holdBtn) {
         this.holdBtn = holdBtn;
-        System.out.println("I'm Changing.");
     }
 
     class InnerListener implements ActionListener {

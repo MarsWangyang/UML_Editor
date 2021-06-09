@@ -2,6 +2,6 @@ package UMLMode;
 
 import UMLEditor.Canvas;
 
-public class selectMode extends Mode{
+public class SelectMode extends Mode{
 
 }

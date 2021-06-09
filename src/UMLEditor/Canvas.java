@@ -4,6 +4,7 @@ import UMLMode.Mode;
 import UMLObj.Shape;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -14,7 +15,7 @@ public class Canvas extends JPanel {
     private static Canvas uniqueInstance;
     private Mode currentMode;
     private EventListener currentListener = null;
-    private Vector allObjectVector = new Vector<>();
+    private Vector<Shape> allObjectVector = new Vector<Shape>();
     public String currentShape = null;
 
 
@@ -51,7 +52,22 @@ public class Canvas extends JPanel {
     }
 
     public void addShape(Shape shape) {
+        allObjectVector.add(shape);
+    }
 
+    public void showShape(){
+        System.out.println(allObjectVector);
+    }
+
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+
+        for(int i=0; i < allObjectVector.size(); i++) {
+            Shape obj = allObjectVector.elementAt(i);
+            obj.draw(g2);
+
+        }
     }
 
 

@@ -2,6 +2,9 @@ package UMLMode;
 
 import UMLObj.Shape;
 
+import java.awt.*;
+
 public interface ShapeFactory {
-    Shape getShape(String objType);
+    Shape getShape(Point point);
+
 }

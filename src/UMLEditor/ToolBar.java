@@ -2,13 +2,10 @@ package UMLEditor;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import UMLMode.Mode;
-import UMLMode.lineMode;
-import UMLMode.objMode;
-import UMLMode.selectMode;
+import UMLMode.LineMode;
+import UMLMode.ObjMode;
+import UMLMode.SelectMode;
 
 public class ToolBar extends JToolBar {
     private Canvas canvas;
@@ -19,25 +16,23 @@ public class ToolBar extends JToolBar {
         canvas = Canvas.getInstance();
         setLayout(new GridLayout(toolNum, 1, 3, 3));
 
-        Button selection = new Button("select.png", new selectMode(), "selection");
+        Button selection = new Button("select.png", new SelectMode(), "selection");
         add(selection);
 
-        Button associateLine = new Button("associate.png", new lineMode(), "associateLine");
+        Button associateLine = new Button("associate.png", new LineMode(), "associateLine");
         add(associateLine);
 
-        Button generalLine = new Button("general.png", new lineMode(), "generalLine");
+        Button generalLine = new Button("general.png", new LineMode(), "generalLine");
         add(generalLine);
 
-        Button compositeLine = new Button("composite.png", new lineMode(), "compositeLine");
+        Button compositeLine = new Button("composite.png", new LineMode(), "compositeLine");
         add(compositeLine);
 
-        Button classObj = new Button("class.png", new objMode(), "classObj");
+        Button classObj = new Button("class.png", new ObjMode(), "classObj");
         add(classObj);
 
-        Button useObj = new Button("usecase.png", new objMode(), "useObj");
+        Button useObj = new Button("usecase.png", new ObjMode(), "useObj");
         add(useObj);
-        System.out.println("111111");
-
     }
 
 

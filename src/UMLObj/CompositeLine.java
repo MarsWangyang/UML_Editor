@@ -1,5 +1,10 @@
 package UMLObj;
 
-public class CompositeLine extends LineObj{
+import java.awt.*;
 
+public class CompositeLine extends LineObj{
+    @Override
+    public void draw(Graphics g) {
+
+    }
 }

@@ -1,4 +1,7 @@
 package UMLObj;
 
-public class LineObj extends Shape{
+import java.awt.*;
+
+public abstract class LineObj extends Shape{
+    public abstract void draw(Graphics g);
 }
