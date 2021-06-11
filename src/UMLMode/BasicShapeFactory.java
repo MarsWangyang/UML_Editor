@@ -16,7 +16,7 @@ public class BasicShapeFactory implements ShapeFactory{
 
     public Shape getShape(Point mouseLocation) {
         if (objType.equals("classObj")) {
-            System.out.println(mouseLocation);
+            //System.out.println(mouseLocation);
             return new ClassObj(mouseLocation);
         }
         else if (objType.equals("useObj")) {

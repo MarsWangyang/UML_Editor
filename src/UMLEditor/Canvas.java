@@ -11,12 +11,15 @@ import java.awt.event.MouseMotionListener;
 import java.util.EventListener;
 import java.util.Vector;
 
+
+//＊＊＊＊要改：mouseclick在裡面做動作
 public class Canvas extends JPanel {
     private static Canvas uniqueInstance;
-    private Mode currentMode;
     private EventListener currentListener = null;
-    private Vector<Shape> allObjectVector = new Vector<Shape>();
-    public String currentShape = null;
+    private Vector<Shape> allObjectVector = new Vector();
+    public String currentShape = null;  //Mode裡面會有很多Shape，這邊是看是什麼Shape
+    private Mode currentMode; //看現在是哪種Mode
+    public Shape selectedShape = null;
 
 
     private Canvas(){}
@@ -33,8 +36,9 @@ public class Canvas extends JPanel {
     //toolBar點擊tool後會有Mode轉換
     public void changeMode(Mode reviseMode) {
         currentMode = reviseMode;
-        System.out.println(currentMode);
+        //System.out.println(currentMode);
     }
+
 
     public void changeObj(String createObj) {
         currentShape = createObj;
@@ -55,18 +59,40 @@ public class Canvas extends JPanel {
         allObjectVector.add(shape);
     }
 
-    public void showShape(){
-        System.out.println(allObjectVector);
+
+    //有問題 還需要改
+    public void setSelectedShape(Shape selectedShape) {
+        if(this.selectedShape != null) {
+            this.selectedShape.selectSwitch(false);
+        }
+        this.selectedShape = selectedShape;
+        if (this.selectedShape != null) {
+            this.selectedShape.selectSwitch(true);
+        }
+
+        repaint();
     }
+
+    public void showShape(){
+        for (int i = 0; i < allObjectVector.size(); i++) {
+            System.out.println(allObjectVector.get(i));
+            System.out.println(allObjectVector.elementAt(i).getInitPoint());
+        }
+    }
+
+    public Vector<Shape> getAllObject(){
+        return allObjectVector;
+    }
+
+
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        for(int i=0; i < allObjectVector.size(); i++) {
+        for(int i = 0; i < allObjectVector.size() ; i++) {
             Shape obj = allObjectVector.elementAt(i);
             obj.draw(g2);
-
         }
     }
 

@@ -1,32 +1,67 @@
 package UMLObj;
 
 import java.awt.*;
+import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 
 public class ClassObj extends BasicObj{
-    double width = 100;
-    double height = 140;
-    private double mouseLocX;
-    private double mouseLocY;
-    private double objLeftX;
-    private double objLeftY;
+
 
     public ClassObj(Point mouseLocation) {
+        this.objName = "Class";
         this.mouseLocX = mouseLocation.getX();
         this.mouseLocY = mouseLocation.getY();
-        this.objLeftX = this.mouseLocX - (width / 2);    //讓滑鼠點擊時，會是在滑鼠中心創建
-        this.objLeftY = this.mouseLocY - (height / 2);   //讓滑鼠點擊時，會是在滑鼠中心創建
+        this.objLeftX = this.mouseLocX - (this.width / 2);    //讓滑鼠點擊時，會是在滑鼠中心創建
+        this.objLeftY = this.mouseLocY - (this.height / 2);   //讓滑鼠點擊時，會是在滑鼠中心創建
+        setPortLocation();
+    }
+
+    @Override
+    public void resetName(String newName) {
+        this.objName = newName;
+        //canvas.repaint();
+    }
+
+    @Override
+    public void selectSwitch(Boolean chosen) {
+        this.isSelected = chosen;
+    }
+
+    @Override
+    public Point getInitPoint() {
+        return new Point((int) this.objLeftX, (int) this.objLeftY);
     }
 
 
 
-    public void draw(Graphics g) {
-        System.out.println("ClassObj painted");
+    @Override
+    public Dimension getObjSize() {
+        return new Dimension((int) this.width, (int) this.height);
+    }
 
+    @Override
+    public void draw(Graphics g) {
+        //System.out.println("ClassObj painted");
         Graphics2D g2 = (Graphics2D) g;
+
+        double firstSepLineLocY = this.objLeftY + 50;
+        double secondSepLineLocY = this.objLeftY + 100;
+
+        FontMetrics fm = g2.getFontMetrics();
+        int textLocX = (int) this.objLeftX + ((int) width - fm.stringWidth(objName)) / 2;
+        int textLocY = (int) this.objLeftY + 30;
 
         g2.setPaint(Color.WHITE);
         g2.draw(new Rectangle2D.Double(objLeftX, objLeftY, width, height));
-        System.out.println(objLeftX);
+        g2.draw(new Line2D.Double(objLeftX, firstSepLineLocY, objLeftX+width, firstSepLineLocY));
+        g2.draw(new Line2D.Double(objLeftX, secondSepLineLocY, objLeftX+width, secondSepLineLocY));
+        g2.drawString(objName, textLocX, textLocY);
+
+        if (isSelected == true) {
+            for (int i = 0; i < portsNum; i++){
+                ports[i].drawPort(g2);
+
+            }
+        }
     }
 }
