@@ -5,15 +5,7 @@ import java.awt.*;
 public class AssociateLine extends LineObj{
 
 
-    @Override
-    public void selectSwitch(Boolean chosen) {
 
-    }
-
-    @Override
-    public Dimension getObjSize() {
-        return null;
-    }
 
     @Override
     public Point getInitPoint() {
@@ -24,4 +16,5 @@ public class AssociateLine extends LineObj{
     public void draw(Graphics g) {
 
     }
+
 }

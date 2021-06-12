@@ -5,16 +5,6 @@ import java.awt.*;
 public class GeneralLine extends LineObj{
 
 
-    @Override
-    public void selectSwitch(Boolean chosen) {
-
-    }
-
-    @Override
-    public Dimension getObjSize() {
-        return null;
-    }
-
     public Point getInitPoint() {
         return null;
     }
@@ -23,4 +13,5 @@ public class GeneralLine extends LineObj{
     public void draw(Graphics g) {
 
     }
+
 }

@@ -3,6 +3,8 @@ package UMLObj;
 import java.awt.*;
 import UMLEditor.Canvas;
 
+import javax.swing.*;
+
 public abstract class Shape {
 
     protected Canvas canvas;
@@ -24,5 +26,7 @@ public abstract class Shape {
 
     public abstract void draw(Graphics g);
 
+    public abstract void resetName(String newName);
 
+    public abstract void draggedMovement(Point point);
 }

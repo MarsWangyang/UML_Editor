@@ -10,16 +10,16 @@ public class UseCaseObj extends BasicObj{
         this.objName = "Use Case";
         this.width = 150;
         this.height = 80;
-        this.mouseLocX = mouseLocation.getX();
-        this.mouseLocY = mouseLocation.getY();
-        this.objLeftX = this.mouseLocX - (this.width / 2);    //讓滑鼠點擊時，會是在滑鼠中心創建
-        this.objLeftY = this.mouseLocY - (this.height / 2);   //讓滑鼠點擊時，會是在滑鼠中心創建
+        createPosition(mouseLocation);
         setPortLocation();
     }
+
+
 
     @Override
     public void resetName(String newName) {
         this.objName = newName;
+        canvas.repaint();
     }
 
 

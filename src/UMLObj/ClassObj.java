@@ -9,17 +9,14 @@ public class ClassObj extends BasicObj{
 
     public ClassObj(Point mouseLocation) {
         this.objName = "Class";
-        this.mouseLocX = mouseLocation.getX();
-        this.mouseLocY = mouseLocation.getY();
-        this.objLeftX = this.mouseLocX - (this.width / 2);    //讓滑鼠點擊時，會是在滑鼠中心創建
-        this.objLeftY = this.mouseLocY - (this.height / 2);   //讓滑鼠點擊時，會是在滑鼠中心創建
+        createPosition(mouseLocation);
         setPortLocation();
     }
 
     @Override
     public void resetName(String newName) {
         this.objName = newName;
-        //canvas.repaint();
+        canvas.repaint();
     }
 
     @Override
@@ -38,6 +35,8 @@ public class ClassObj extends BasicObj{
     public Dimension getObjSize() {
         return new Dimension((int) this.width, (int) this.height);
     }
+
+
 
     @Override
     public void draw(Graphics g) {

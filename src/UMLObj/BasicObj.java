@@ -35,6 +35,18 @@ public abstract class BasicObj extends Shape{
         ports[3] = new Port(mouseLocX, mouseLocY - height / 2);
     }
 
+    public void createPosition(Point mouseLocation) {
+        this.mouseLocX = mouseLocation.getX();
+        this.mouseLocY = mouseLocation.getY();
+        this.objLeftX = this.mouseLocX - (this.width / 2);    //讓滑鼠點擊時，會是在滑鼠中心創建
+        this.objLeftY = this.mouseLocY - (this.height / 2);   //讓滑鼠點擊時，會是在滑鼠中心創建
+    }
+
+    public void draggedMovement(Point mouseDraggingLoc) {
+        createPosition(mouseDraggingLoc);
+        setPortLocation();
+        canvas.repaint();
+    }
 
     public abstract void draw(Graphics g);
 }

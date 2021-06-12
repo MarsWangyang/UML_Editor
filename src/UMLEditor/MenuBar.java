@@ -42,8 +42,6 @@ public class MenuBar extends JMenuBar{
             int nameLocY = (int) dim.getY() + 10;
             int buttonLocY = nameLocY + 50;
 
-
-
             newName.setBounds(nameLocX, nameLocY, 250, 35);
 
             confirm.setBounds(nameLocX+10, buttonLocY, 100, 45);
@@ -51,8 +49,13 @@ public class MenuBar extends JMenuBar{
                     new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                             //把newName叫進來去更換
-
-                            renameDialog.dispose();
+                            if (canvas.selectedShape != null) {
+                                canvas.selectedShape.resetName(newName.getText());
+                                renameDialog.dispose();
+                            }
+                            else{
+                                renameDialog.dispose();
+                            }
                         }
                     }
             );
