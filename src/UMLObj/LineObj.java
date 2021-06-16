@@ -1,7 +1,6 @@
 package UMLObj;
 
 import java.awt.*;
-import java.util.Vector;
 
 public class LineObj extends Shape{
     protected Port[] linePort = new Port[2];
@@ -31,11 +30,29 @@ public class LineObj extends Shape{
         return new Point(0,0);
     }
 
-
+    @Override
+    public void selectSwitch(Boolean chosen) {
+        return ;
+    }
 
 
     @Override
     public void draw(Graphics g) {
 
+    }
+
+    @Override
+    public int getWidth() {
+        return 0;
+    }
+
+    @Override
+    public int getHeight() {
+        return 0;
+    }
+
+    @Override
+    public Port[] getPortLocation() {
+        return new Port[0];
     }
 }

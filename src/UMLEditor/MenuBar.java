@@ -2,6 +2,8 @@ package UMLEditor;
 
 
 
+import UMLObj.BasicObj;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -48,7 +50,7 @@ public class MenuBar extends JMenuBar{
                         public void actionPerformed(ActionEvent e) {
                             //把newName叫進來去更換
                             if (canvas.selectedShape != null) {
-                                //canvas.selectedShape.resetName(newName.getText());
+                                ((BasicObj) canvas.selectedShape).resetName(newName.getText());
                                 renameDialog.dispose();
                             }
                             else{
@@ -83,13 +85,14 @@ public class MenuBar extends JMenuBar{
 
     class GroupListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            canvas.group(canvas.selectedShapeVector);
 
         }
     }
 
     class UngroupListener implements ActionListener {
         public void actionPerformed(ActionEvent e){
-
+            canvas.unGroup(canvas.selectedShape);
         }
     }
 

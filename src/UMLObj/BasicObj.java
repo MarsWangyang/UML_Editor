@@ -15,6 +15,7 @@ public class BasicObj extends Shape{
 
     public void resetName(String newName) {
         this.objName = newName;
+        canvas.repaint();
     }
 
     public Point getInitPoint(){
@@ -26,7 +27,22 @@ public class BasicObj extends Shape{
     }
 
 
-    public void setSelected() {
+    public int getObjLeftX() {
+        return (int) objLeftX;
+    }
+
+    public int getObjLeftY() {
+        return (int) objLeftY;
+    }
+
+
+    public int getWidth() {
+        return (int) width;
+    }
+
+
+    public int getHeight() {
+        return (int) height;
     }
 
     //初始化object位置
@@ -49,6 +65,8 @@ public class BasicObj extends Shape{
         this.objLeftY = this.objLeftY + delta.getY();
 
 
+        //When basic object was dragged, ports will automatically relocate the position
+        //and remind that the lines connected with the port need to be relocated.
         ports[0].setPort((int) this.objLeftX, (int) (this.objLeftY+height/2));//重新更新Object Port的位置
         ports[0].resetLineLoc();//port上有連著的線段也要去relocate
 

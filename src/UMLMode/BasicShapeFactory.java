@@ -1,7 +1,7 @@
 package UMLMode;
 
 import UMLObj.*;
-import UMLObj.Shape;
+
 
 import java.awt.*;
 

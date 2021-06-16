@@ -46,6 +46,7 @@ public class LineMode extends Mode{
             this.initPort.addLine(line);    //initport加入line
             this.endPort.addLine(line);     //endport加入Line
             line.setLinePort(initPort, endPort);
+
             canvas.addVectorShape(line);
         }
         else{
@@ -69,7 +70,7 @@ public class LineMode extends Mode{
 
 
         for (int i = 0; i < canvas.getAllObject().size(); i++) {
-            BasicObj obj = (BasicObj) canvas.getAllObject().elementAt(i);
+            Shape obj = canvas.getAllObject().elementAt(i);
             Port[] portArr = obj.getPortLocation();
             if (portArr.length != 0) {
                 for (int ele = 0; ele < portArr.length; ele++) {

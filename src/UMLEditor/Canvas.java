@@ -1,7 +1,9 @@
 package UMLEditor;
 
 import UMLMode.Mode;
+import UMLMode.SelectMode;
 import UMLObj.BasicObj;
+import UMLObj.Group;
 import UMLObj.LineObj;
 import UMLObj.Shape;
 
@@ -9,21 +11,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.Vector;
 
 public class Canvas extends JPanel {
     private static Canvas uniqueInstance;
     private EventListener currentListener = null;
-    private Vector<Shape> allObjectVector = new Vector();
+    private Vector<Shape> allObjectVector = new Vector(); //this vector only store basic objects -> for convenience
+    private Vector<LineObj> lineVector = new Vector();
     public String currentShape = null;  //Mode裡面會有很多Shape，這邊是看是什麼Shape
     private Mode currentMode; //看現在是哪種Mode
     public Shape selectedShape = null;
-    public int rectPointInitX = 0;
+    public Vector<Shape> selectedShapeVector = new Vector();
+    public ArrayList<Vector<Shape>> tempShapeVector = new ArrayList<>();
+    public int rectPointInitX = 0;  //the rectangle frame in selection mode.
     public int rectPointInitY = 0;
     public int rectPointEndX = 0;
     public int rectPointEndY = 0;
-    private Vector<LineObj> lineVector = new Vector();
+    int alpha = 127;
+
 
     private Canvas(){}
 
@@ -64,12 +71,13 @@ public class Canvas extends JPanel {
 
     //Single shape被click的時候的port的顯示
     public void setSelectedShape(Shape selectedShape) {
+
         if(this.selectedShape != null) {
-            ((BasicObj)this.selectedShape).selectSwitch(false);
+            (this.selectedShape).selectSwitch(false);
         }
         this.selectedShape = selectedShape;
         if (this.selectedShape != null) {
-            ((BasicObj)this.selectedShape).selectSwitch(true);
+            (this.selectedShape).selectSwitch(true);
         }
         repaint();
     }
@@ -89,12 +97,83 @@ public class Canvas extends JPanel {
     //對整個canvas做MouseListener，因為canvas是JPanel，所以addXXXListener就會對整個Panel做admin
     //currentListener中會是inherit Adapter，因此裡面都是Mouse Action.
     public void listenerSetting() {
+        setSelectedShapeVector();
         removeMouseListener((MouseListener) currentListener);
         removeMouseMotionListener((MouseMotionListener) currentListener);
         currentListener = currentMode;
         addMouseListener((MouseListener) currentListener);
         addMouseMotionListener((MouseMotionListener) currentListener);
     }
+
+
+    //把方框的起始點跟width,height校正回歸
+    public void drawPerfectRect(Graphics g, int x, int y, int x2, int y2) {
+        int px = Math.min(x,x2);
+        int py = Math.min(y,y2);
+        int pw=Math.abs(x-x2);
+        int ph=Math.abs(y-y2);
+        g.fillRect(px, py, pw, ph);
+    }
+
+    public void setSelectedShapeFalse() {
+        if(selectedShape != null) {
+            this.selectedShape.selectSwitch(false);
+        }
+    }
+
+    //selection的mouseDragged中，消除上一次還存在在selectedShapeVector裡面objects的port
+    public void setSelectedShapeVectorFalse() {
+        if(selectedShapeVector.size() != 0) {
+            for (int i = 0; i < selectedShapeVector.size(); i++) {
+                this.selectedShapeVector.elementAt(i).selectSwitch(false);
+            }
+        }
+        repaint();
+    }
+
+    //selection的mouseDragged中，加入被框住object的ports
+    public void setSelectedShapeVector() {
+        if (selectedShapeVector.size() != 0) {
+            for (int i = 0; i < selectedShapeVector.size(); i++) {
+                this.selectedShapeVector.elementAt(i).selectSwitch(true);
+            }
+        }
+
+        repaint();
+    }
+
+
+    //click the button (group) in menuBar
+    public void group(Vector selectedShapeVector) {
+
+        Group groupShape = new Group();
+        groupShape.addSelectedShapeGroup(selectedShapeVector);
+
+        groupMoveData();
+
+        //this.selectedShapeVector.removeAllElements(); //把已經轉變成為group物件的vector刪掉
+        allObjectVector.add(groupShape);        //把group物件加入allobjectVector
+    }
+
+    public void groupMoveData() {
+        tempShapeVector.add(selectedShapeVector);
+        setSelectedShapeVectorFalse();
+        for (int i = 0; i < selectedShapeVector.size(); i++) {
+            allObjectVector.removeElement(selectedShapeVector.elementAt(i));
+        }
+        this.selectedShapeVector.removeAllElements(); //把已經轉變成為group物件的vector刪掉
+    }
+
+
+    public void unGroup(Shape selectedShape) {
+        Vector<Shape> returnShape = ((Group) selectedShape).getInnerShape();
+        allObjectVector.removeElement(selectedShape);
+        for (int i = 0; i < returnShape.size(); i++ ){
+            allObjectVector.add(returnShape.elementAt(i));
+        }
+    }
+
+
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -110,6 +189,9 @@ public class Canvas extends JPanel {
             line.draw(g2);
         }
 
+        //selection中畫方框
+        g2.setPaint(new Color(155, 200, 123, alpha));
+        drawPerfectRect(g2, rectPointInitX, rectPointInitY, rectPointEndX, rectPointEndY);
 
 
 
